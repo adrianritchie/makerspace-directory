@@ -1,0 +1,64 @@
+<template name="home">
+  <div class="row table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>
+            Can do
+            {{> search type="skill"}}
+            <br />
+            {{> filter type="skill" values=skillFilter}}
+          </th>
+          <th>
+            Looking for
+            {{> search type="need"}}
+            <br />
+            {{> filter type="need" values=needFilter}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each makers}}
+          {{> maker}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="maker">
+  <tr>
+    <td>{{user.name}}</td>
+    <td>
+      {{#each cando}}
+        <button type="button" class="btn btn-default btn-xs skill">{{this}}</button>
+      {{/each}}
+    </td>
+
+    <td>
+      {{#each lookingfor}}
+        <button type="button" class="btn btn-default btn-xs need">{{this}}</button>
+      {{/each}}
+    </td>
+  </tr>
+</template>
+
+<template name="filter">
+  {{#each values}}
+    <button type="button" class="btn btn-default btn-xs {{../type}}Filter filter" data-value="{{this}}">
+      <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+      {{this}}
+    </button>
+  {{/each}}
+</template>
+
+<template name="search">
+  <form class="form-inline {{type}}sForm">
+      <input class="form-control typeahead" name="{{type}}" type="text"
+        placeholder="Search {{type}}s"
+        autocomplete="off" spellcheck="off"
+        data-source="{{type}}s"/>
+      <button type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  </form>
+</template>
